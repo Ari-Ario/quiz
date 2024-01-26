@@ -2,7 +2,7 @@
 /*
     INCLUDE DATABASE CONNECTION
 */
-include('utils/db.php');
+include 'db.php';
 
 /*
     SCHREIBE HIER DIE QUERIES
@@ -10,7 +10,7 @@ include('utils/db.php');
     Bsp: SELECT * FROM books
 */
 
-$queryString = "";
+$queryString = "SELECT * FROM books";
 
 
 
@@ -33,11 +33,11 @@ try{
 
     // überprüfe, ob Abfrage vorhanden ist
     if($queryString == ''){
-        throw new \Exception('keine Abfrage in $queryString vorhanden');
+        throw new \Exception('No querry written yet!');
     }
 
     // bereite die Abfrage vor
-    $query = $dbConn->prepare($queryString);
+    $query = $dbConnection->prepare($queryString);
 
     // füge Daten für Platzhalter ein, falls vorhanden
     $query->execute($data);
@@ -56,7 +56,5 @@ try{
     die("Fehler: " . $e->getMessage());
 }
 
-catch (\Exception $e) {
-    die("Fehler: " . $e->getMessage());
-}
+
 
