@@ -10,7 +10,7 @@ include 'db.php';
     Bsp: SELECT * FROM books
 */
 
-$queryString = "SELECT * FROM books";
+$queryString = "SELECT * FROM questions";
 
 
 
@@ -48,7 +48,7 @@ try{
     }
 
     // alle Daten werden aus der DB geholt und in einem assoziativen Array gespeichert
-    $books = $query->fetchAll(PDO::FETCH_ASSOC);
+    $questions = $query->fetchAll(PDO::FETCH_ASSOC);
 
     
 
