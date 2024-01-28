@@ -1,3 +1,9 @@
+<?php
+if (session_status() === PHP_SESSION_NONE){
+    session_start();
+}
+ ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,5 +17,6 @@
     include './includes/main.php';
     include './includes/footer.php' ?>
     
+    <script src="script.js"></script>
 </body>
 </html>
