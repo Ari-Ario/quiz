@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST"){
     $selectedTopic = $_SESSION['selected-topic'];
     if (isset($selectedTopic) && $selectedTopic != ''){
         // print_r($_SESSION);
-        header('location: /includes/form.php');
+        header('location: form.php');
     }
 }
  ?>

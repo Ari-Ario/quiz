@@ -2,44 +2,56 @@
 if (session_status() === PHP_SESSION_NONE){
     session_start();
 }
-
+include dirname(__DIR__) . "/utils/db.php";
 $topic = $_SESSION['selected-topic'];
-
-if ($_SERVER['REQUEST_METHOD'] === "POST"){
-    $q = "";
-}
-
- ?>
-
-<?php include "header.php"; ?>
-
-
-<!DOCTYPE html>
-<html lang="en">
+$queryString = "SELECT * FROM questions WHERE topic = '$topic'";
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../styles.css">
-
 </head>
 <body>
+<?php include "header.php"; ?>
 <?php include dirname(__DIR__) . '/utils/queries.php'; ?>
 <section id="form-quiz">
     <section id="form-container">
-    <?php  // Display the current question
-    $questionId = isset($_GET['question_id']) ? (int)$_GET['question_id'] : 1;
+    <?php  
+    //check if a question is submited
+    if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+        $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
+        $userAnswer = isset($_POST['id']) ? (int)$_POST['id'] : null;
 
-    if (isset($questions[$questionId]) && ($questions[$questionId]['topic'] === $topic)) {
-        $questionId = $questions[$questionId]['id'];
-        $question = $questions[$questionId]['question_text'];
-        $options = array_slice($questions[$questionId], 2, 7);
+        //validation
+        if (isset($questions[$id])) {
+            $_SESSION['quiz_result'][$id] = $userAnswer;
+            $nextQuestionId = $id +1;
+
+            if (isset($questions[$nextQuestionId])){
+                header("location: ./form.php?id=$nextQuestionId");
+                exit();
+            } else {
+                $_SESSION['quiz_completed'] = true;
+                header("location: form.php");
+                exit();
+            }
+        }
+    }
+
+    // Display the current question
+    $id = isset($_GET['id']) ? (int)$_GET['id'] : 1;
+
+    if (isset($questions[$id]) && ($questions[$id]['topic'] === $topic)) {
+        $id = $questions[$id]['id'];
+        $question = $questions[$id]['question_text'];
+        $options = array_slice($questions[$id], 3, 5);
         
-        echo "<h2>Question $questionId:</h2>";
+        echo "<h2>Question $id:</h2>";
         echo "<p>$question</p>";
 
-        echo '<form action="index.php" method="post">';
-        echo '<input type="hidden" name="question_id" value="' . $questionId . '">';
+        echo '<form action="form.php" method="post">';
+        echo '<input type="hidden" name="id" value="' . $id . '">';
 
         foreach ($options as $option) {
             echo '<label><input type="radio" name="answer" value="' . $option . '"> ' . $option . '</label><br>';
