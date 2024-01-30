@@ -111,6 +111,7 @@ body {
 
 #search-btn {
   height: min(6vh, 400px);
+  width: min(4vw, 400px);
   font-size: large;
   font-weight: bold;
   color: var(--bluedarkest);
@@ -312,6 +313,17 @@ a {
   img {
     max-width: 90vw;
   }
+  #header-homepage {
+    padding: 0 5vw 0 5vw;
+    max-width: 90vw;
+  }
+  #search-btn {
+    height: min(6vh, 400px);
+    width: min(12vw, 400px);
+    font-size: large;
+    font-weight: bold;
+    color: var(--bluedarkest);
+  }
 
   #menu-navigation {
     height: min(6vh, 400px);
@@ -324,6 +336,7 @@ a {
     border-radius: 8px ;
     background-color: var(--bluegrey);
   }
+  
   #main-content {
     margin: 0;
     padding: 0;

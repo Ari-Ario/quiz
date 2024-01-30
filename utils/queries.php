@@ -4,30 +4,22 @@
 */
 include 'db.php';
 
-/*
-    SCHREIBE HIER DIE QUERIES
-    Speichere diese immer in der Variable $queryString ab
-    Bsp: SELECT * FROM books
-*/
+
 
 $queryString = "SELECT * FROM questions";
 
 
 
 /*
-    DATEN
-    Hier kannst Du Platzhalter im Query mit Daten füllen
-    Bsp: ':id' => 1
+    DATEA
 */
 
 $data = [];
 
 
-
-/*
-    DER QUERY WIRD AUSGEFÜHRT
-    Die verschiedenen Schritte für PDO
-*/
+/* function databankQuery($queryString){
+    $queryString = $queryString;
+} */
 
 try{
 
@@ -44,7 +36,7 @@ try{
 
     // überprüfe, ob Daten zurück gegeben werden
     if($query->rowCount() == 0) {
-        throw new \Exception('Deine Abfrage gibt keine Daten zurück');
+        throw new \Exception('Your query retrives no data!');
     }
 
     // alle Daten werden aus der DB geholt und in einem assoziativen Array gespeichert
@@ -55,6 +47,3 @@ try{
 } catch (PDOException $e) {
     die("Fehler: " . $e->getMessage());
 }
-
-
-

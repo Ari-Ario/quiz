@@ -13,9 +13,11 @@ if (session_status() === PHP_SESSION_NONE){
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <?php include_once './includes/header.php';
-    include './includes/main.php';
-    include './includes/footer.php' ?>
+    <?php 
+    include './includes/header.php';
+    include './includes/topic-selection.php';
+    include './includes/footer.php';
+    ?>
     
     <script src="script.js"></script>
 </body>

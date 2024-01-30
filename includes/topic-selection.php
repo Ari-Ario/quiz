@@ -18,11 +18,11 @@ if (session_status() === PHP_SESSION_NONE){
         </section> -->
 
         <section id="form-main-page">
-            <form action="/includes/select.php" method="POST">
+            <form action="/includes/question.php" method="POST">
                 <label for="selected-topic">select a topic:</label>
                 <select name="selected-topic" id="selected-topic">
-                    <option value="music">Music</option>
-                    <option value="film">FIlm</option>
+                    <option value="tech">Technic</option>
+                    <option value="cinems">Cinema</option>
                     <option value="animals">Animals</option>
                     <option value="astronautic">Astronautic</option>
                     <option value="1"></option>
