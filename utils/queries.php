@@ -5,7 +5,6 @@
 include 'db.php';
 
 
-
 $queryString = "SELECT * FROM questions";
 
 

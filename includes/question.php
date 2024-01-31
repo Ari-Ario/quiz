@@ -3,15 +3,19 @@ if (session_status() === PHP_SESSION_NONE){
     session_start();
 }
 
-// topic is recorded into the session here
-if (isset($_POST['selected-topic'])) {
-    $_SESSION['selected-topic'] = $_POST['selected-topic'];
-    $topic = $_SESSION['selected-topic'];
+include "db.php";
+
+if (isset($_POST['quiz'])) $quiz =$_SESSION['quiz'];
+else $quiz = NULL;
+
+if (isset($_POST['lastQuestionIndex'])) {
+    $lastQuestionIndex = intval($_POST['lastQuestionIndex']);
+} else {
+    $lastQuestionIndex = -1;
 }
 
-include dirname(__DIR__) . "/utils/db.php";
-$topic = $_SESSION['selected-topic'];
-$queryString = "SELECT * FROM questions WHERE topic = '$topic'";
+
+
 ?>
 
 <!DOCTYPE html>
@@ -23,23 +27,18 @@ $queryString = "SELECT * FROM questions WHERE topic = '$topic'";
     <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
-<?php include "header.php"; ?>
-<?php include dirname(__DIR__) . '/utils/queries.php'; ?>
 <section id="form-quiz">
     <section id="form-container">
     <?php
+    // https://www.w3schools.com/php/php_form_required.asp
 
-    //check if a question is submited
-    $questionArray = Array();
-    foreach ($questions as $Key => $Value){
-        if ($Value['topic'] === $_SESSION['selected-topic']){
-            array_push($questionArray);
-        }
-    }
-    print_r($questionArray);
-
-
-    // Display the current question TODO-----------------------------------------------------------------------
+    // function to validate the input in case of a hacking input
+    // function test_input($data) {
+    //     $data = trim($data);
+    //     $data = stripslashes($data);
+    //     $data = htmlspecialchars($data);
+    //     return $data;
+    //   }
 
     if (isset($questions[$id]) && ($questions[$id]['topic'] === $topic)) {
         $id = $questions[$id]['id'];

@@ -14,4 +14,15 @@ try {
 } catch (PDOException $e) {
     die("Connection Error: " . $e->getMessage()); // display error message
 }
+
+// Query functions
+
+function fetchQuestionIdSequence($topic, $questionNum, $dbConnection) {
+    $query = "SELECT `id` FROM `questions` WHERE `topic` = '$topic' ORDER BY RAND() LIMIT $questionNum";
+    // all data with 
+    $sqlStatement = $dbConnection->query($query);
+    $rows = $sqlStatement->fetchAll(PDO::FETCH_COLUMN, 0);
+    return $rows;
+}
+
 ?>

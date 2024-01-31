@@ -194,18 +194,28 @@ a {
   color: var(--light);
 }
 
+#number-of-questions, #selected-topic {
+  min-width: 3vw;
+  max-width: 4vw;
+  border-radius: 4px;
+  margin: 1vh;
+}
+
 #start-btn {
   width: fit-content;
   padding: 1vw;
   border-radius: 1vw;
   margin: 1vw;
+  font-size: large;
+  font-weight: bold;
 }
 
 #start-btn :hover {
-  background-color: var();
+  background-color: var(--bluegrey);
 }
 
-/* form styling */
+
+/* form of index styling */
 
 #form-quiz {
   position: relative;
@@ -351,6 +361,10 @@ a {
     top: -6vh; 
     max-height: 12vh;
     left: 60%;
+  }
+  #number-of-questions, #selected-topic {
+    min-width: 20vw;
+    max-width: 21vw;
   }
 
   #footer-container {
