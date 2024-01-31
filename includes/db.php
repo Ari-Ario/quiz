@@ -25,4 +25,12 @@ function fetchQuestionIdSequence($topic, $questionNum, $dbConnection) {
     return $rows;
 }
 
+function questionRequest($questionId, $dbConnection) {
+    $query = "SELECT * FROM `questions` WHERE `id` = '$questionId'";
+    // all data with 
+    $sqlStatement = $dbConnection->query($query);
+    $rows = $sqlStatement->fetchALL(PDO::FETCH_ASSOC); 
+    return $rows;
+}
+
 ?>
