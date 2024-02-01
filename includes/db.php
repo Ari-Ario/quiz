@@ -1,4 +1,5 @@
 <?php
+include dirname(__DIR__) . "/utils/helper.php";
     // Connection credentials for the database
     // You can find the credentials in docker-compose.yml
     $dbName = getenv('DB_NAME');
@@ -25,11 +26,10 @@ function fetchQuestionIdSequence($topic, $questionNum, $dbConnection) {
     return $rows;
 }
 
-function questionRequest($questionId, $dbConnection) {
-    $query = "SELECT * FROM `questions` WHERE `id` = '$questionId'";
-    // all data with 
-    $sqlStatement = $dbConnection->query($query);
-    $rows = $sqlStatement->fetchALL(PDO::FETCH_ASSOC); 
+function questionRequest($id, $dbConnection) {
+    // all data with id
+    $sqlStatement = $dbConnection->query("SELECT * FROM `questions` WHERE `id` = '$id'");
+    $rows = $sqlStatement->fetch(PDO::FETCH_ASSOC); 
     return $rows;
 }
 

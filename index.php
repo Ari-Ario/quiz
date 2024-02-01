@@ -27,8 +27,8 @@ if (session_status() === PHP_SESSION_NONE){
             <form action="/includes/question.php" method="POST">
                 <label for="topic">Select a topic:</label>
                 <select name="topic" id="topic">
-                    <option value="tech">Technic</option>
                     <option value="cinema">Cinema</option>
+                    <option value="tech">Technic</option>
                     <option value="animals">Animals</option>
                     <option value="astronomy">astronomy</option>
                     <option value="geography">Geography</option>
@@ -36,8 +36,9 @@ if (session_status() === PHP_SESSION_NONE){
                 <br>
                 <label for="questionNum"># of questions:</label>
                 <input type="number" name="questionNum" id="questionNum" value="10">
+                <span class="error"> <?php echo $numberErr = '';?></span>
                 <br>
-                <input type="hidden" name="lastQuestionId" id="lastQuestionId" value="-1">
+                <input type="hidden" name="lastQuestionIndex" id="lastQuestionIndex" value="-1">
                 <input type="hidden" name="IndexStep" id="IndexStep" value="1">
                 <input type="submit" id="start-btn" value="Start Quiz">
             </form>

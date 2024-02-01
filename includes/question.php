@@ -4,12 +4,6 @@ if (session_status() === PHP_SESSION_NONE){
 }
 
 include "data-collector.php";
-$_SESSION['topic'] = $_POST['topic'];
-$questionArray = Array();
-foreach ($questionIdSequence as $el) {
-    $question = questionRequest($el, $dbConnection);
-    array_push($questionArray ,$question);
-}
 ?>
 
 <!DOCTYPE html>
@@ -21,9 +15,15 @@ foreach ($questionIdSequence as $el) {
     <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
+<?php include "header.php"; ?>
 <section id="form-quiz">
     <section id="form-container">
     <?php
+    if (isset($quiz['questionIdSequence'])){
+        $id = $quiz['questionIdSequence'][$currentQuestionIndex];
+    }
+    $question = questionRequest($id, $dbConnection);
+    
     // https://www.w3schools.com/php/php_form_required.asp
 
     // function to validate the input in case of a hacking input
@@ -33,33 +33,27 @@ foreach ($questionIdSequence as $el) {
     //     $data = htmlspecialchars($data);
     //     return $data;
     //   }
-
-    $id = isset($_POST['lastQuestionId']) ? (int)$_POST['lastQuestionId'] : 0;
-    if ($_SERVER['REQUEST_METHOD'] === "POST"){
-        $id++;
-    }
-
-    if (isset($questionArray[$id][0]) && ($questionArray[$id][0]['topic'] === $_SESSION['topic'])) {
-        $questionId = $questionArray[$id][0]['id'];
-        $question = $questionArray[$id][0]['question_text'];
-        $options = array_slice($questionArray[$id][0], 3, 5);
-        $questionNumber= $id +1;
-        echo "<h2>Question $questionNumber:</h2>";
-        echo "<h3>$question</h3>";
-
-        echo '<form action="question.php" method="post">';
-        echo '<input type="hidden" name="id" value="' . $id . '">';
-
-        foreach ($options as $option) {
-            if ($option != ""){echo '<label><input type="radio" name="answer" value="' . $option . '"> ' . $option . '</label><br>';}
+?>
+    <form action="<?php echo $actionUrl; ?>" method="post">
+        <h1><?php echo $question['question_text'] ?></h1>
+        <?php
+        $correct = $question["correct"];
+        for ($i = 1; $i <=5; $i++){
+            $answerColumnName = "answer_" . $i;
+            if (isset($question[$answerColumnName]) && !empty($question[$answerColumnName])) {
+                $answerText = $question[$answerColumnName];
+                if ($correct === $question[$answerColumnName]) $value = 1;
+                else $value = 0;
+                echo "<section id='form-check'>
+                <input type='radio' name='single-choice' id='$answerColumnName' value='$value'>
+                <label for='$answerColumnName'> $answerText</label>
+                </section>";
+            }
         }
+        ?>
+        <input type="submit" value="Next">
 
-        echo '<button type="submit">Submit Answer</button>';
-        echo '</form>';
-    } else {
-        echo "<p>Invalid question ID.</p>";
-    }
-    ?>
+    </form>
     </section>
 </section>
 
