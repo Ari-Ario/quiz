@@ -4,9 +4,10 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 // if (isset($_SESSION['topic'])) {$_SESSION['topic'] = $_POST['topic'];}
 include "db.php";
+$topic = $_POST['topic'];
 
-if (isset($_POST['quiz'])) $quiz =$_SESSION['quiz'];
-else $quiz = NULL;
+if (isset($_POST['quiz'])) $quiz = $_SESSION['quiz'];
+else $quiz = null;
 
 if (isset($_POST['lastQuestionIndex'])) {
     $lastQuestionIndex = intval($_POST['lastQuestionIndex']);
@@ -28,12 +29,7 @@ else if (str_contains($scriptName, 'question')){
         
         // break the code if the number of questions more than the selected numbers are -- TODO Warning in index
 
-        if ($questionNum > count($questionIdSequence)){
-            $questionNum = count($questionIdSequence);
-        } else {
-            $numberErr= "Maximum questions about this topic are: $questionNum";
-        }
-
+        $questionNum = count($questionIdSequence);
 
         // collecting the data 
         $quiz = array(
@@ -43,8 +39,11 @@ else if (str_contains($scriptName, 'question')){
             "currentQuestionIndex" => -1,
             "questionIdSequence" => $questionIdSequence);
         $_SESSION['quiz'] = $quiz;
+        prettyPrint($quiz);
     }
 }
+
+$currentQuestionIndex = $lastQuestionIndex + 1;
 
 // repeat the form, in case of finished number of questions redirect it to report 
 $currentQuestionIndex= $lastQuestionIndex+1;
