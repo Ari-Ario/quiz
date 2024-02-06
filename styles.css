@@ -226,12 +226,14 @@ a {
   border: 1px;
   margin: 0;
   padding: 0;
-  top: 7vh;
+  top: 8vh;
 }
 
 #form-container {
-  color: var(--bluedarkest);
+  display: grid;
+  align-items: center;
 
+  color: var(--bluedarkest);
   margin : 20px;
   height: 80vh;
   width: 60vw;
@@ -239,6 +241,26 @@ a {
   border-radius: 40px;
 }
 
+.header-form:nth-child(odd) {
+ padding-left: 4vw;
+ margin-top: 30%;
+}
+.header-form:nth-child(even) {
+  padding-left: 4vw;
+  margin-bottom: 30%;
+ }
+
+ .btn-primary {
+  min-width: 10vw;
+  min-height: 3vh;
+  border-radius: 1vw;
+  font-size: larger;
+  font-weight: bold;
+  background-color: var(--greengrey);
+ }
+ #report {
+  padding-left: 4vw;
+ }
 
 /* footer */
 
@@ -295,7 +317,6 @@ a {
   display: none;
   background-color: var(--bluedarkest);
 }
-
 
 
 @media screen and (max-width: 768px)  {
@@ -389,5 +410,11 @@ a {
     font-weight: bold;
     bottom: 0;
     padding: 1vh;
+  }
+
+  #form-container {
+    width: 90vw;
+    border: 1px dashed var(--bluedarkest);
+    border-radius: 40px;
   }
 }
