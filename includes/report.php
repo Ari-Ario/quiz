@@ -25,6 +25,7 @@ foreach ($_SESSION as $key => $data) {
 
 $procent = round(($totalPoints/(count($_SESSION)-1))*100, 2);
 if ($procent > 100) { $procent = 100; }
+else if  ($procent < 0) { $procent = 0; }
 ?>
 
 <!DOCTYPE html>
