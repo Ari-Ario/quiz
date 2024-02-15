@@ -42,6 +42,9 @@ if (session_status() === PHP_SESSION_NONE){
                 <input type="hidden" name="IndexStep" id="IndexStep" value="1">
                 <input type="submit" id="start-btn" value="Start Quiz">
             </form>
+            <form action="/includes/test.php" method="POST">
+                <input type="submit" value="tables">
+            </form>
         </section>
     </section>
 </main>
